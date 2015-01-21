@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <meta charset="utf-8">
+    <title>jQuery Ajax</title>
+    <link rel="stylesheet" href="../css/ajx-json-styles.css">
+
+    <script>
+        function displayParsedData(data){
+          /* Working with the 'data' object (not string) here, now we can access the different properties available.*/
+          text = '<b>Name: </b>' + data.list[0].name + '<br/>';
+          text += '<b>message: </b>' + data.message + '<br/>';
+          text += '<b>Current Temperature: </b>' + data.list[0].main.temp + ' F<br/>';
+          text += '<b>Weather Conditions: </b>' + data.list[0].weather[0].description + '<br/>';
+          $('#parsed_json').append(text);
+        }
+      </script>
+
+    <script>
+        function test1() {
+          getWeather(function (data) {
+              $("#raw_json").html('<h2>callback</h2><pre>' + JSON.stringify(data, null, 2) + '</pre>');
+              displayParsedData(data);
+          });
+        }
+
+        function getWeather(callback) {
+          var weather = 'http://openweathermap.org/data/2.1/find/city?lat=8.2924495&lon=-62.7373258';
+          $.ajax({
+            dataType: "jsonp",
+            url: weather,
+            success: callback
+          });
+        }
+      </script>
+
+    <script>
+        function test2() {
+          $.ajax({
+            url: 'http://openweathermap.org/data/2.1/find/city?lat=8.2924495&lon=-62.7373258',
+            type: 'GET',
+            dataType:"jsonp",
+            success: function(data) {
+              $("#raw_json").html('<h2>$.ajax</h2><pre>' + JSON.stringify(data, null, 2) + '</pre>');
+              displayParsedData(data);
+            },
+            error: function(jqXHR, textStatus, error) {
+              alert( "error: " + jqXHR.responseText);
+            }
+          });
+        }
+      </script>
+
+    <script>
+        function test3() {
+          $.getJSON('http://openweathermap.org/data/2.1/find/city?lat=8.2924495&lon=-62.7373258&callback=?', function(data) {
+              $("#raw_json").html('<h2>getJSON</h2><pre>' + JSON.stringify(data, null, 2) + '</pre>');
+              displayParsedData(data);
+            })
+          .done(function() {
+            alert( "second success" );
+          })
+          .fail(function() {
+            alert( "error" );
+          });
+        }
+        /*$.getJSON('http://openweathermap.org/data/2.1/find/city?lat=13.3428&lon=-6.2661&cnt=10&callback=?', function(data) { console.log(data); });*/
+      </script>
+
+    <script>
+      $(document).ready(function (){
+          $("#btn382").click(function(){
+              /* set no cache */
+              $.ajaxSetup({ cache: false });
+
+              $.getJSON("weather.json", function(data){
+                  for (var team in data) {
+                    var html = [];
+                    html = '<div class="item"><b>Team: </b>' + data[team].Teams + '<br/>';
+                    html += '<b>Lat: </b>' +data[team].Lat + '<br/>';
+                    html += '<b>Lon: </b>' + data[team].Lon + '<br/>';
+                    html += '<b>Weather: </b>' + data[team].Weather + '<br/></div>';
+                    $("#div381").append(html);
+                  }
+              })
+              .error(function(jqXHR, textStatus, errorThrown){ /* assign handler */
+                  /* alert(jqXHR.responseText) */
+                  alert("error occurred!");
+              });
+          });
+      });
+      </script>
+
+</head>
+<body>
+<div id="example-section38">
+    <div>Otra fuente</div>
+    <div id="div381"></div>
+    <button id="btn382" type="button">Team location</button>
+</div>
+
+<div id="raw_json"></div>
+<div id="parsed_json"></div>
+
+<button onclick="test1();">callback</button>
+<button onclick="test2();">$.ajax</button>
+<button onclick="test3();">getJSON</button>
+</body>
+</html>

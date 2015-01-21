@@ -1,0 +1,164 @@
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>A simple map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='js/mapbox.js'></script>
+    <link href='css/mapbox.css' rel='stylesheet' />
+    <link href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css" rel="stylesheet">
+    <script src="js/leaflet.draw.js"></script>
+    <script src="js/MapRegean.js"></script>
+    <!--<script src="js/custom.js"></script>-->
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
+    <style>
+        body { margin:0; padding:0; position:relative;}
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+
+
+        .btnAreaLeft {
+        margin:  -52px 0 0 15px;
+        float: left;
+        z-index: 9999999999;
+        position: absolute;
+        bottom: 25px;
+        left: 25px;
+
+        }
+
+        .cacheButton {
+        line-height: 25px;
+        width: 80px;
+        font-family: "Tahoma";
+        font-size: 12px;
+        cursor: pointer;
+        color:black;
+        background-color: white;
+        border-radius: 3px;
+        }
+
+        .txt {
+
+        height:30px;
+        }
+
+    </style>
+</head>
+<body onload="init()">
+<div id='map' class="leaflet-container leaflet-fade-anim" tabindex="0">
+
+    <div class="leaflet-map-pane" style="transform: translate3d(-1px, 0px, 0px);">
+        <div class="leaflet-tile-pane">
+
+        </div>
+
+    </div>
+    <div class="leaflet-control-container">
+        <div class="leaflet-top leaflet-left">
+            <div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#"
+                                                                             title="Zoom in">+</a><a
+                    class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a></div>
+            <div class="leaflet-draw leaflet-control">
+                <div class="leaflet-draw-section">
+                    <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top"><a
+                            class="leaflet-draw-draw-polyline" href="#" title="Draw a polyline"></a><a
+                            class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"></a><a
+                            class="leaflet-draw-draw-rectangle" href="#" title="Draw a rectangle"></a><a
+                            class="leaflet-draw-draw-circle" href="#" title="Draw a circle"></a><a
+                            class="leaflet-draw-draw-marker" href="#" title="Draw a marker"></a></div>
+                    <ul class="leaflet-draw-actions"></ul>
+                </div>
+                <div class="leaflet-draw-section">
+                    <div class="leaflet-draw-toolbar leaflet-bar"><a class="leaflet-draw-edit-edit" href="#"
+                                                                     title="Edit layers."></a><a
+                            class="leaflet-draw-edit-remove" href="#" title="Delete layers."></a></div>
+                    <ul class="leaflet-draw-actions"></ul>
+                </div>
+            </div>
+        </div>
+       <div class="leaflet-top leaflet-right">
+            <div class="leaflet-control-grid map-tooltip leaflet-control" style="display: none;"><a class="close"
+                                                                                                    href="#"
+                                                                                                    title="close">close</a>
+
+                <div class="map-tooltip-content"></div>
+            </div>
+        </div>
+        <div class="leaflet-bottom leaflet-left"></div>
+        <div class="leaflet-bottom leaflet-right">
+            <div class="map-legends wax-legends leaflet-control" style="display: none;"></div>
+            <div class="leaflet-control-attribution leaflet-control"><a href="https://www.mapbox.com/about/maps/"
+                                                                        target="_blank">© Mapbox © OpenStreetMap</a> <a
+                    class="mapbox-improve-map"
+                    href="https://www.mapbox.com/map-feedback/#examples.map-i86nkdio/-77.038/38.894/16" target="_blank">Improve
+                this map</a></div>
+        </div>
+    </div>
+</div>
+<!--<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiYXNsYXRlciIsImEiOiItYTNLNkkwIn0.uf1rwYpeylp32z8EVOjXpg';
+var map = L.mapbox.map('map', 'aslater.kj2mcaba')
+    .setView([35.887,-78.751 ], 4);
+
+
+
+ var featureGroup = L.featureGroup().addTo(map);
+
+  // Define circle options
+  // http://leafletjs.com/reference.html#circle
+  var circle_options = {
+      color: '#fff',      // Stroke color
+      opacity: 1,         // Stroke opacity
+      weight: 10,         // Stroke weight
+      fillColor: '#000',  // Fill color
+      fillOpacity: 0.6    // Fill opacity
+  };
+
+
+
+
+  // Define polyline options
+  // http://leafletjs.com/reference.html#polyline
+  var polyline_options = {
+      color: '#000'
+  };
+
+  // Defining a polygon here instead of a polyline will connect the
+  // endpoints and fill the path.
+  // http://leafletjs.com/reference.html#polygon
+
+
+  var drawControl = new L.Control.Draw({
+    edit: {
+      featureGroup: featureGroup
+    }
+  }).addTo(map);
+
+  map.on('draw:created', function(e) {
+      featureGroup.addLayer(e.layer);
+  });
+
+  map.on('draw:created', showPolygonArea);
+map.on('draw:edited', showPolygonAreaEdited);
+
+function showPolygonAreaEdited(e) {
+  e.layers.eachLayer(function(layer) {
+    showPolygonArea({ layer: layer });
+  });
+}
+function showPolygonArea(e) {
+  featureGroup.clearLayers();
+  featureGroup.addLayer(e.layer);
+  e.layer.bindPopup((LGeo.area(e.layer) / 1000000).toFixed(2) + ' km<sup>2</sup>');
+  e.layer.openPopup();
+}
+
+</script>-->
+
+<div class="btnAreaLeft" >
+    <Button id="btn2"  class="cacheButton" onclick="offlineMap()" title="Offline Map">Offline Map</Button>
+    <Button id="btn1"  class="cacheButton" onclick="cache()" title="Cache Tiles">Cache Map</Button>
+    <input id="txt1" class="txt" type="text" name="zoomLevel" placeholder="min zoom" maxlength="2" size="8" required height="200px"/>
+    <input id="txt2" class="txt" type="text" name="zoomLevel" placeholder="max Zoom" maxlength="2" size="8" required value="17" />
+</div>
+</body>
+</html>
