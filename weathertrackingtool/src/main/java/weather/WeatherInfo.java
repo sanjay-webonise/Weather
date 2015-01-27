@@ -15,7 +15,7 @@ public class WeatherInfo extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Weather");
+        primaryStage.setTitle("WeatherInfo");
 
         weatherController = new WeatherInfoController();
         scene = new Scene(weatherController, 680, 680);

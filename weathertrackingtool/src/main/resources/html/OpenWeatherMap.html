@@ -121,37 +121,7 @@ markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(0,0),icon.clone())
 }
 
 </script>
-<!--<script>
-    var StyleMap = new OpenLayers.Style({
-			fontColor: "black",
-			fontSize: "12px",
-			fontFamily: "Arial, Courier New",
-			labelAlign: "lt",
-			labelXOffset: "-15",
-			labelYOffset: "-17",
-			labelOutlineColor: "white",
-			labelOutlineWidth: 3,
-			externalGraphic: "${icon}",
-			graphicWidth: 60,
-                	label : "${myCustomLabel}"
-			},
-			{
-			context:
-			{
-				icon:  function(feature) {
-					return "http://openweathermap.org"+GetWeatherIcon(feature.attributes.station);
-				},
-			        myCustomLabel:  function(feature) {
-				        return  Math.round(feature.attributes.station.main.temp-273.15) + 'c';
-			        }
-			}
-			}
 
-		));
-
-	var stations = new OpenLayers.Layer.Vector.OWMWeather("Weather", { styleMap: StyleMap });
-
-</script>-->
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-31601618-1']);
