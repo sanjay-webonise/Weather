@@ -34,7 +34,7 @@ google.maps.event.addListener(map, 'click', function(e) {
       var latlon=e.latLng;
       console.log("LatLong"+latlon);
 
-       weatherLayer.setMap((this).is(':click') ? map : null);
+       weatherLayer.setMap(map);
 
      cloudLayer.setMap(map);
       });

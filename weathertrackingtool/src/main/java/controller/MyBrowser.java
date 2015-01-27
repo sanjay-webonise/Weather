@@ -18,7 +18,7 @@ public class MyBrowser extends Region {
 
     public MyBrowser() {
 
-        final URL urlGoogleMaps = getClass().getResource("/html/OpenWeatherMap.html");
+        final URL urlGoogleMaps = getClass().getResource("/html/openweathermap.html");
         webEngine.load(urlGoogleMaps.toExternalForm());
 
         getChildren().add(webView);
