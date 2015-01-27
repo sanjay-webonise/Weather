@@ -8,17 +8,18 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker.State;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.concurrent.Worker.State;
-import org.w3c.dom.*;
 import model.Weather;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
-public class Controller extends Application {
+public class WeatherTool extends Application {
     String url = "http://weather.yahooapis.com/forecastrss?p=USMD0033&u=f";
     int refreshCountdown = 60;
     @Override public void start(Stage stage) {

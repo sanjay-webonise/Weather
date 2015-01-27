@@ -13,6 +13,8 @@
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather"></script>
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
     <script>
 function initialize() {
   var mapOptions = {
@@ -28,8 +30,12 @@ function initialize() {
   });
 
   var cloudLayer = new google.maps.weather.CloudLayer();
-google.maps.event.addListener(map, 'click', function() {
-       weatherLayer.setMap(map);
+google.maps.event.addListener(map, 'click', function(e) {
+      var latlon=e.latLng;
+      console.log("LatLong"+latlon);
+
+       weatherLayer.setMap((this).is(':click') ? map : null);
+
      cloudLayer.setMap(map);
       });
    }
@@ -39,5 +45,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </head>
 <body>
 <div id="map-canvas"></div>
+
 </body>
 </html>
