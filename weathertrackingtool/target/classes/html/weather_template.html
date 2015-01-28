@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Weather Widget 2</title>     
-    <style type="text/css">
-        body { background-color:#ffffff; }
-            
-        .tileTextDisplay {
-            font-family: arial,sans-serif;
-            font-weight: lighter !important;
-            color: #878787 !important;
-        }
-        .largerFont {
-            font-size: x-large !important;
-        }
-        .mediumFont {
-            font-size: medium !important;
-        }
-        #weather-temp {
-            font-family: 'Arial', sans-serif;
-            font-size: 64px;
-            color: #212121 !important;
-        }
-        #unitType {
-            font-family: 'Arial', sans-serif;
-            font-size: 20px;
-            color: #000000 !important;
-        }
-    </style>
-    
+    <title>Weather Widget</title>
+      <link href="../css/map.css" rel="stylesheet"/>
+      <link href="../css/flatred.css" rel="stylesheet"/>
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <script>
+function initialize() {
+  var mapOptions = {
+    zoom: 2,
+    center: new google.maps.LatLng(0,0)
+  };
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+          var weatherLayer = new google.maps.weather.WeatherLayer({
+    temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT
+  });
+
+  var cloudLayer = new google.maps.weather.CloudLayer();
+google.maps.event.addListener(map, 'click', function(e) {
+      var latlon=e.latLng;
+      console.log("LatLong"+latlon);
+
+       weatherLayer.setMap(map);
+
+     cloudLayer.setMap(map);
+      });
+   }
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
     <script>
     var weekday=new Array(7);
     weekday[0]="Sunday";
@@ -92,27 +97,46 @@
         return timeStr;
     }
     </script>
+
+
     </head>
-    <body id="weather_background">
-        <form>
-            <input id="search-field" placeholder="Enter city, state/country" type="text" name="searchField"/>
-            <!-- A -->
-            <input id="search-button" type="button" onclick="findWeatherByLocation()" name="searchButton" value="Search"/>
-        </form>
-        <div id="error-msg"></div>
-        <div id="city" class="tileTextDisplay largerFont"></div>
-        <div id="country" class="tileTextDisplay mediumFont"></div>
-        <div id="weather-day-time" class="tileTextDisplay mediumFont"></div>
-        <div id="weather-current" class="tileTextDisplay mediumFont"></div>
-        <div id="weather-current-desc" class="tileTextDisplay mediumFont"></div>
-        <div>
-            <img id="weather-icon" style="float:left;height:64px;width:64px" src="" alt=""/>
-            <div id="weather-temp" style="padding-left:10px; float:left;"></div>
-            <div style="float:left; font-size:20px; margin-top:6px">
-                <span style="display:inline">°<span id="unitType">C</span></span>
+    <body>
+
+    <div id="wrapper">
+        <div id="navigation"><center><h4 style="padding-top:8px">Weather Widget</h4></center></div>
+
+        <div id="menu"><div style="float:left; font-size:20px; margin:6px">
+            <form style=" margin-top:6px">
+                <input id="search-field" placeholder="Enter city, state/country" type="text" name="searchField"/>
+                <!-- A -->
+                <input id="search-button" type="BUTTON" onclick="findWeatherByLocation()" name="searchButton" value="Search"/>
+                <hr/>
+            </form>
+
+            <div id="error-msg"></div>
+            <div id="city" class="tileTextDisplay largerFont"></div>
+            <div id="country" class="tileTextDisplay mediumFont"></div>
+            <div id="weather-day-time" class="tileTextDisplay mediumFont"></div>
+            <div id="weather-current" class="tileTextDisplay mediumFont"></div>
+            <div id="weather-current-desc" class="tileTextDisplay mediumFont"></div>
+            <div>
+                <img id="weather-icon" style="float:left;height:64px;width:64px" src="" alt=""/>
+                <div id="weather-temp" style="padding-left:10px; float:left;"></div>
+                <div style="float:left; font-size:20px; margin-top:6px">
+                    <span style="display:inline">°<span id="unitType">C</span></span>
+                </div>
             </div>
+            <div style="clear:both;"></div>
+            <div id="weather-humidity" class="tileTextDisplay mediumFont"></div>
+            <div id="weather-wind-speed" class="tileTextDisplay mediumFont"></div>
+            <hr/>
         </div>
-        <div style="clear:both;"></div>
-        <div id="weather-humidity" class="tileTextDisplay mediumFont"></div>
-        <div id="weather-wind-speed" class="tileTextDisplay mediumFont"></div>
+        </div>
+        <div id="content">
+            <div id="map-canvas" ></div>
+        </div>
+        <div id="footer"></div>
+    </div>
+
+    </body>
 </html>

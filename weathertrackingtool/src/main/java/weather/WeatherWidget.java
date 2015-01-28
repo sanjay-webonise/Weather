@@ -37,8 +37,10 @@ public class WeatherWidget extends Application {
       stage.setTitle("Weather Widget");
       BorderPane root = new BorderPane();
       Scene scene = new Scene(root, 300, 300);
+       scene.getStylesheets().add(getClass().getClassLoader().getResource("css/map.css").toExternalForm());
+       scene.getStylesheets().add(getClass().getClassLoader().getResource("css/flatred.css").toExternalForm());
       stage.setScene(scene);
-      
+
       // WebView node to display local html content
       webView = new WebView();
       root.setCenter(webView);
@@ -64,10 +66,11 @@ public class WeatherWidget extends Application {
       });
 
 
-      // load weather_template.html 
-      String htmlFile = streamToString(
-            getClass().getClassLoader().getResourceAsStream("html/weather_template.html"));
-      webView.getEngine().loadContent(htmlFile);
+      // load weather_template.html
+       final URL urlGoogleMaps = getClass().getResource("/html/weather_template.html");
+
+      //String htmlFile = streamToString( getClass().getClassLoader().getResourceAsStream("html/weather_template.html"));
+      webView.getEngine().load(urlGoogleMaps.toExternalForm());
       stage.show();
    }
 
